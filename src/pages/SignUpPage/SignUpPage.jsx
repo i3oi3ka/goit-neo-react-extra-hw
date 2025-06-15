@@ -1,19 +1,12 @@
 import { Field, Form, Formik } from "formik";
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import { signUpThunk } from "../../redux/auth/operations";
 
-const SignUpPage = ({ submitSignUP }) => {
-  const handleSubmit = (values, actions) => {
-    actions.reset();
-    submitSignUP(values);
+const SignUpPage = () => {
+  const submitSignUP = (values) => {
+    signUpThunk(values);
   };
-  return (
-    <Formik onSubmit={handleSubmit}>
-      <Form>
-        <Field type="text" name="name" />
-        <Field type="email" name="email" />
-        <Field type="password" name="password" />
-      </Form>
-    </Formik>
-  );
+  return <SignUpForm submitSignUP={submitSignUP} />;
 };
 
 export default SignUpPage;
