@@ -1,9 +1,11 @@
+import { useDispatch } from "react-redux";
 import LoginForm from "../../components/LoginForm/LoginForm";
-import { loginThunk } from "../../redux/auth/operations";
+import { login } from "../../redux/auth/operations";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const submitLogin = (values) => {
-    loginThunk(values);
+    dispatch(login(values));
   };
   return <LoginForm submitLogin={submitLogin} />;
 };
