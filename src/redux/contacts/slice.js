@@ -5,19 +5,18 @@ import {
   fetchContacts,
   editContact,
 } from "./operations";
-// import { selectNameFilter } from "./filtersSlice";
 
 const handlePending = (state) => {
-  state.loading = true;
+  state.isloading = true;
 };
 
 const handleRejected = (state, { payload }) => {
-  state.loading = false;
+  state.isloading = false;
   state.error = payload;
 };
 
 const handleFullfield = (state) => {
-  state.loading = false;
+  state.isloading = false;
   state.error = null;
 };
 
@@ -39,14 +38,15 @@ const contactSlice = createSlice({
         state.items.push(payload);
       })
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.items = state.items.filter(
-          (contact) => contact.id !== payload.id
-        );
+        state.items = state.items.filter((contact) => contact.id !== payload);
       })
       .addCase(editContact.fulfilled, (state, { payload }) => {
-        state.items.map((contact) => {
-          return contact.id === payload.id ? contact : payload;
-        });
+        const index = state.items.findIndex(
+          (contact) => contact.id === payload.id
+        );
+        if (index !== -1) {
+          state.items[index] = payload;
+        }
       })
       .addMatcher(
         ({ type }) => /^contacts\/.*\/pending$/.test(type),

@@ -11,6 +11,6 @@ export const selectContacts = (state) => state.contacts.items;
 //   }
 // );
 
-export const selectContactLoading = (state) => state.contacts.loading;
+export const selectContactLoading = (state) => state.contacts.isloading;
 
 export const selectContactError = (state) => state.contacts.error;
