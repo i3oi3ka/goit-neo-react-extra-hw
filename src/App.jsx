@@ -27,18 +27,30 @@ function App() {
   ) : (
     <Routes>
       <Route path="/" element={<HomeLayout />}>
-        <Route path="/" element={<HomePage />} />
+        <Route index element={<HomePage />} />
         <Route
           path="/register"
-          element={<RestrictedRoute component={<RegistrationPage />} />}
+          element={
+            <RestrictedRoute>
+              <RegistrationPage />
+            </RestrictedRoute>
+          }
         />
         <Route
           path="/login"
-          element={<RestrictedRoute component={<LoginPage />} />}
+          element={
+            <RestrictedRoute>
+              <LoginPage />
+            </RestrictedRoute>
+          }
         />
         <Route
           path="/contacts"
-          element={<PrivateRoute component={<ContactsPage />} />}
+          element={
+            <PrivateRoute>
+              <ContactsPage />
+            </PrivateRoute>
+          }
         />
       </Route>
       <Route path="*" element={<div>404</div>} />
