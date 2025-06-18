@@ -5,6 +5,7 @@ import {
   fetchContacts,
   editContact,
 } from "./operations";
+import { logout } from "../auth/operations";
 
 const handlePending = (state) => {
   state.isloading = true;
@@ -47,6 +48,9 @@ const contactSlice = createSlice({
         if (index !== -1) {
           state.items[index] = payload;
         }
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.items = [];
       })
       .addMatcher(
         ({ type }) => /^contacts\/.*\/pending$/.test(type),
