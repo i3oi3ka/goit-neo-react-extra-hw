@@ -10,8 +10,6 @@ const LoginForm = ({ submitLogin }) => {
   const passId = nanoid();
   const handleSubmit = (values, actions) => {
     actions.reset;
-    console.log(values);
-
     submitLogin(values);
   };
   return (

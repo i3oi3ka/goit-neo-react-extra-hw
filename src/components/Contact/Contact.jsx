@@ -28,8 +28,6 @@ const Contact = ({ contact }) => {
 
   const handleChangeContact = (values, actions) => {
     setIsEditing(false);
-    console.log({ id: contact.id, contact: { ...values } });
-
     dispatch(editContact({ id: contact.id, contact: { ...values } }));
     toast(`Contact ${contact.name} changed`);
     actions.reset;
@@ -62,7 +60,7 @@ const Contact = ({ contact }) => {
             </Formik>
           )}
         </div>
-        {!isEditing && (
+        {!isEditing ? (
           <button
             type="button"
             className={styless.button}
@@ -71,6 +69,14 @@ const Contact = ({ contact }) => {
             }}
           >
             Edit
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styless.button}
+            onClick={() => setIsEditing(false)}
+          >
+            Cancel
           </button>
         )}
         <button
