@@ -5,31 +5,19 @@ import { ClipLoader } from "react-spinners";
 import {
   selectContactError,
   selectContactLoading,
-  selectContacts,
+  selectFilteredContacts,
 } from "../../redux/contacts/selectors";
-
-const override = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-  color: "#ffffff",
-};
+import { selectFilter } from "../../redux/filters/selectors";
+import Loader from "../Loader/Loader";
 
 const ContactList = () => {
-  const contacts = useSelector(selectContacts);
-  //   const filter = useSelector(selectNameFilter);
+  const contacts = useSelector(selectFilteredContacts);
+  const filter = useSelector(selectFilter);
   const isLoading = useSelector(selectContactLoading);
   const error = useSelector(selectContactError);
   return (
     <>
-      <ClipLoader
-        color={override.color}
-        loading={isLoading}
-        cssOverride={override}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+      <Loader isLoading={isLoading} />
       {error && <p>{error}</p>}
       {!isLoading &&
         !error &&
@@ -39,8 +27,10 @@ const ContactList = () => {
               <Contact key={contact.id} contact={contact} />
             ))}
           </ul>
-        ) : (
+        ) : !filter ? (
           <p>Contact book empty</p>
+        ) : (
+          <p>Search result empty</p>
         ))}
     </>
   );

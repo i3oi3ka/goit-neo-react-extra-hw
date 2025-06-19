@@ -13,6 +13,7 @@ import ContactsPage from "./pages/ContactsPage/ContactsPage";
 
 import { refreshUser } from "./redux/auth/operations";
 import { selectIsRefreshing } from "./redux/auth/selectors";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -23,7 +24,7 @@ function App() {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <p>Refreshing user...</p>
+    <Loader isLoading={isRefreshing} />
   ) : (
     <Routes>
       <Route path="/" element={<HomeLayout />}>
@@ -39,7 +40,7 @@ function App() {
         <Route
           path="/login"
           element={
-            <RestrictedRoute>
+            <RestrictedRoute redirectTo="/contacts">
               <LoginPage />
             </RestrictedRoute>
           }
