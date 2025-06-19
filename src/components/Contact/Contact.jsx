@@ -6,13 +6,24 @@ import toast from "react-hot-toast";
 import { deleteContact, editContact } from "../../redux/contacts/operations";
 import { useState } from "react";
 import { Field, Form, Formik } from "formik";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 const Contact = ({ contact }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const dispatch = useDispatch();
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id));
-    toast(`Contact deleteded ${id}`);
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleDeleteBtn = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteContact(contact.id));
+    toast(`Contact deleteded ${contact.id}`);
   };
 
   const handleChangeContact = (values, actions) => {
@@ -65,11 +76,16 @@ const Contact = ({ contact }) => {
         <button
           type="button"
           className={styless.button}
-          onClick={() => handleDelete(contact.id)}
+          onClick={handleDeleteBtn}
         >
           Delete
         </button>
       </div>
+      <ModalWindow
+        modalIsOpen={isOpenModal}
+        closeModal={handleCloseModal}
+        handleDelete={handleDelete}
+      />
     </>
   );
 };
