@@ -46,7 +46,7 @@ const contactSlice = createSlice({
           (contact) => contact.id === payload.id
         );
         if (index !== -1) {
-          state.items[index] = payload;
+          state.items[index] = { id: payload.id, ...payload.contact };
         }
       })
       .addCase(logout.fulfilled, (state) => {
