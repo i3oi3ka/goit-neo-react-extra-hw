@@ -31,27 +31,17 @@ function App() {
         <Route index element={<HomePage />} />
         <Route
           path="/register"
-          element={
-            <RestrictedRoute>
-              <RegistrationPage />
-            </RestrictedRoute>
-          }
+          element={<RestrictedRoute component={<RegistrationPage />} />}
         />
         <Route
           path="/login"
           element={
-            <RestrictedRoute redirectTo="/contacts">
-              <LoginPage />
-            </RestrictedRoute>
+            <RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />
           }
         />
         <Route
           path="/contacts"
-          element={
-            <PrivateRoute>
-              <ContactsPage />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute component={<ContactsPage />} />}
         />
       </Route>
       <Route path="*" element={<div>404</div>} />
